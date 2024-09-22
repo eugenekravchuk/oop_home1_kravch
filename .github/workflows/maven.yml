@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -36,10 +36,6 @@ jobs:
     - uses: jwgmeligmeyling/checkstyle-github-action@master
       with:
         path: '**/checkstyle-result.xml'
-    # - name: Generate JaCoCo Badge
-    #   uses: cicirello/jacoco-badge-generator@v2
-    #   with: 
-    #     jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
     - name: Spotbugs
       run: mvn spotbugs:check
     - uses: jwgmeligmeyling/spotbugs-github-action@master
