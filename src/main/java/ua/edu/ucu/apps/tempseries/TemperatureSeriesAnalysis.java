@@ -42,6 +42,18 @@ public class TemperatureSeriesAnalysis {
         return null;
     }
 
+    public double[] findTempsInRange(double lowerBound, double upperBound) {
+        return null;
+    }
+
+    public void reset() {
+
+    }
+
+    public double[] sortTemps() {
+        return null;
+    }
+
     public TempSummaryStatistics summaryStatistics() {
         return null;
     }
