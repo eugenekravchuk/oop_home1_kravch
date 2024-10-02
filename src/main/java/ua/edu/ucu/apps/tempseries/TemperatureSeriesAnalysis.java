@@ -10,8 +10,8 @@ public final class TemperatureSeriesAnalysis {
 
 
     public TemperatureSeriesAnalysis() {
-        this.temperatureSeries = new double[0];
-        size = 0;
+        this.temperatureSeries = new double[10];
+        this.size = 0;
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
@@ -37,7 +37,7 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public double average() {
-        if (temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
 
@@ -49,7 +49,7 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public double deviation() {
-        if (temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
         
@@ -65,7 +65,7 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public double min() {
-        if (temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
     
@@ -81,14 +81,14 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public double max() {
-        if (temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
 
         double maxTemp = temperatureSeries[0];
         
         for (double temp : temperatureSeries) {
-            if (temp < maxTemp) {
+            if (temp > maxTemp) {
                 maxTemp = temp;
             }
         }
@@ -98,7 +98,7 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public double findTempClosestToZero() {
-        if (temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
 
@@ -115,7 +115,7 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public double findTempClosestToValue(double tempValue) {
-        if (temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
 
@@ -163,7 +163,7 @@ public final class TemperatureSeriesAnalysis {
         int counter = 0;
 
         for (double temp : temperatureSeries) {
-            if (temp > lowerBound && temp < upperBound) {
+            if (temp >= lowerBound && temp <= upperBound) {
                 range[counter] = temp;
                 counter++;
             }
@@ -189,7 +189,7 @@ public final class TemperatureSeriesAnalysis {
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        if (this.temperatureSeries.length == 0) {
+        if (this.size == 0) {
             throw new IllegalArgumentException(
                 "Temperature series is empty");
         }
@@ -211,19 +211,19 @@ public final class TemperatureSeriesAnalysis {
             }
         }
         
-        if (size + temps.length > temperatureSeries.length) {
+        if (this.size + temps.length > temperatureSeries.length) {
             double[] newTemperatureSeries = 
             new double[temperatureSeries.length * 2];
-            System.arraycopy(temperatureSeries, 
+            System.arraycopy(this.temperatureSeries, 
             0, newTemperatureSeries, 0, size);
-            temperatureSeries = newTemperatureSeries;
+            this.temperatureSeries = newTemperatureSeries;
         }
 
         for (double temp : temps) {
-            temperatureSeries[size] = temp;
-            size++;
+            this.temperatureSeries[size] = temp;
+            this.size++;
         }
 
-        return size;
+        return this.size;
     }
 }

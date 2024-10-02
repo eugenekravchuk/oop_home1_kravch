@@ -13,6 +13,22 @@ public class TempSummaryStatistics {
     this.maxTemp = max;
   }
 
+  public double getAvgTemp(){
+    return this.avgTemp;
+  }
+  
+  public double getDevTemp(){
+    return this.devTemp;
+  }
+
+  public double getMinTemp(){
+    return this.minTemp;
+  }
+
+  public double getMaxTemp(){
+    return this.maxTemp;
+  }
+
   @Override
   public String toString() {
       return String.format(
