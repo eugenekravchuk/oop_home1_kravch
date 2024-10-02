@@ -15,22 +15,22 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
+        if (temperatureSeries == null) {
+            throw new IllegalArgumentException("Temperature series cannot be null");
+        }
         if (temperatureSeries.length == 0) {
             this.temperatureSeries = new double[0];
             this.size = 0;
             return;
         }
 
-        double[] temp_arr = new double[temperatureSeries.length];
-
-        for (int i = 0; i < temperatureSeries.length; i++) {
-            temp_arr[i] = temperatureSeries[i];
-            if (temperatureSeries[i] < ABSOLUTE_ZERO_CELSIUS) {
-                throw new InputMismatchException(
-                    "Temperature cannot be below -273°C");
+        for (double temp : temperatureSeries) {
+            if (temp < ABSOLUTE_ZERO_CELSIUS) {
+                throw new InputMismatchException("Temperature cannot be below -273°C");
             }
         }
-        this.temperatureSeries = temp_arr;
+
+        this.temperatureSeries = temperatureSeries.clone();
         this.size = temperatureSeries.length;
     }
 
