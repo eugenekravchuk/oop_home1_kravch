@@ -15,19 +15,25 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
-        if (temperatureSeries.length > 0) {
-            for (double temp : temperatureSeries) {
-                if (temp < ABSOLUTE_ZERO_CELSIUS) {
-                    throw new InputMismatchException(
-                    "Temperature cannot be below -273°C");
-                }
-            }
-            this.temperatureSeries = temperatureSeries.clone();
-            size = this.temperatureSeries.length;
-        } else {
+        if (temperatureSeries == null) {
+            throw new IllegalArgumentException("Input array cannot be null");
+        }
+    
+        if (temperatureSeries.length == 0) {
             this.temperatureSeries = new double[0];
-            size = 0;
-        }   
+            this.size = 0;
+            return;
+        }
+    
+        for (double temp : temperatureSeries) {
+            if (temp < ABSOLUTE_ZERO_CELSIUS) {
+                throw new InputMismatchException(
+                    "Temperature cannot be below -273°C");
+            }
+        }
+
+        this.temperatureSeries = temperatureSeries.clone();
+        this.size = temperatureSeries.length;
     }
 
     public double average() {
@@ -129,7 +135,7 @@ public class TemperatureSeriesAnalysis {
         int counter = 0;
 
         for (double temp : temperatureSeries) {
-            if (temp < tempValue ) {
+            if (temp < tempValue) {
                 less[counter] = temp;
                 counter++;
             }
@@ -143,7 +149,7 @@ public class TemperatureSeriesAnalysis {
         int counter = 0;
 
         for (double temp : temperatureSeries) {
-            if (temp > tempValue ) {
+            if (temp > tempValue) {
                 great[counter] = temp;
                 counter++;
             }
