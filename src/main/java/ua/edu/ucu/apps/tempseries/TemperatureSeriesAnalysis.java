@@ -5,12 +5,13 @@ import java.util.InputMismatchException;
 
 public final class TemperatureSeriesAnalysis {
     private static final double ABSOLUTE_ZERO_CELSIUS = -273;
+    private static final int INITIAL_SIZE = 10;
     private double[] temperatureSeries;
     private int size;
 
 
     public TemperatureSeriesAnalysis() {
-        this.temperatureSeries = new double[10];
+        this.temperatureSeries = new double[INITIAL_SIZE];
         this.size = 0;
     }
 
