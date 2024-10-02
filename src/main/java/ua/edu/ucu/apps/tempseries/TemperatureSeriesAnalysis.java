@@ -3,7 +3,7 @@ package ua.edu.ucu.apps.tempseries;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
-public class TemperatureSeriesAnalysis {
+public final class TemperatureSeriesAnalysis {
     private static final double ABSOLUTE_ZERO_CELSIUS = -273;
     private double[] temperatureSeries;
     private int size;
@@ -16,7 +16,8 @@ public class TemperatureSeriesAnalysis {
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         if (temperatureSeries == null) {
-            throw new IllegalArgumentException("Temperature series cannot be null");
+            throw new IllegalArgumentException(
+                "Temperature series cannot be null");
         }
         if (temperatureSeries.length == 0) {
             this.temperatureSeries = new double[0];
@@ -26,7 +27,8 @@ public class TemperatureSeriesAnalysis {
 
         for (double temp : temperatureSeries) {
             if (temp < ABSOLUTE_ZERO_CELSIUS) {
-                throw new InputMismatchException("Temperature cannot be below -273°C");
+                throw new InputMismatchException(
+                    "Temperature cannot be below -273°C");
             }
         }
 
