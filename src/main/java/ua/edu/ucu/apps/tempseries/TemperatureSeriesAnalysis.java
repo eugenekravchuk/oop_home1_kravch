@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
+    private static final double ABSOLUTE_ZERO_CELSIUS = -273;
     private double[] temperatureSeries;
     private int size;
 
@@ -14,13 +15,19 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
-        for (double temp : temperatureSeries) {
-            if (temp < -273) {
-                throw new InputMismatchException("Temperature cannot be below -273°C");
+        if (temperatureSeries.length > 0) {
+            for (double temp : temperatureSeries) {
+                if (temp < ABSOLUTE_ZERO_CELSIUS) {
+                    throw new InputMismatchException(
+                    "Temperature cannot be below -273°C");
+                }
             }
-        }
-        this.temperatureSeries = temperatureSeries.clone();
-        size = this.temperatureSeries.length;
+            this.temperatureSeries = temperatureSeries.clone();
+            size = this.temperatureSeries.length;
+        } else {
+            this.temperatureSeries = new double[0];
+            size = 0;
+        }   
     }
 
     public double average() {
@@ -29,7 +36,7 @@ public class TemperatureSeriesAnalysis {
         }
 
         double sum = 0;
-        for (double temp : temperatureSeries){
+        for (double temp : temperatureSeries) {
             sum += temp;
         }
         return sum / temperatureSeries.length;
@@ -39,18 +46,16 @@ public class TemperatureSeriesAnalysis {
         if (temperatureSeries.length == 0) {
             throw new IllegalArgumentException("Temperature series is empty");
         }
-
+        
         double avar = average();
-
         double sumSquaredDiffs = 0;
+        
         for (double temp : temperatureSeries) {
             double diff = temp - avar;
-            sumSquaredDiffs += diff;
+            sumSquaredDiffs += diff * diff;
         }
-
-        double variance = sumSquaredDiffs / temperatureSeries.length; 
-
-        return 0;
+        
+        return Math.sqrt(sumSquaredDiffs / temperatureSeries.length);
     }
 
     public double min() {
@@ -124,7 +129,7 @@ public class TemperatureSeriesAnalysis {
         int counter = 0;
 
         for (double temp : temperatureSeries) {
-            if (temp < tempValue ){
+            if (temp < tempValue ) {
                 less[counter] = temp;
                 counter++;
             }
@@ -138,7 +143,7 @@ public class TemperatureSeriesAnalysis {
         int counter = 0;
 
         for (double temp : temperatureSeries) {
-            if (temp > tempValue ){
+            if (temp > tempValue ) {
                 great[counter] = temp;
                 counter++;
             }
@@ -152,7 +157,7 @@ public class TemperatureSeriesAnalysis {
         int counter = 0;
 
         for (double temp : temperatureSeries) {
-            if (temp > lowerBound && temp < upperBound){
+            if (temp > lowerBound && temp < upperBound) {
                 range[counter] = temp;
                 counter++;
             }
@@ -179,7 +184,8 @@ public class TemperatureSeriesAnalysis {
 
     public TempSummaryStatistics summaryStatistics() {
         if (this.temperatureSeries.length == 0) {
-            throw new IllegalArgumentException("Temperature series is empty");
+            throw new IllegalArgumentException(
+                "Temperature series is empty");
         }
 
         double averTemp = average();
@@ -187,19 +193,23 @@ public class TemperatureSeriesAnalysis {
         double minTemp = min();
         double maxTemp = max(); 
 
-        return new TempSummaryStatistics(averTemp, devTemp, minTemp, maxTemp);
+        return new TempSummaryStatistics(averTemp, 
+            devTemp, minTemp, maxTemp);
     }
 
     public int addTemps(double... temps) {
         for (double temp : temps) {
-            if (temp < -273) {
-                throw new InputMismatchException("Temperature cannot be below -273°C");
+            if (temp < ABSOLUTE_ZERO_CELSIUS) {
+                throw new InputMismatchException(
+                "Temperature cannot be below -273°C");
             }
         }
         
         if (size + temps.length > temperatureSeries.length) {
-            double[] newTemperatureSeries = new double[temperatureSeries.length * 2];
-            System.arraycopy(temperatureSeries, 0, newTemperatureSeries, 0, size);
+            double[] newTemperatureSeries = 
+            new double[temperatureSeries.length * 2];
+            System.arraycopy(temperatureSeries, 
+            0, newTemperatureSeries, 0, size);
             temperatureSeries = newTemperatureSeries;
         }
 
