@@ -16,8 +16,8 @@ public class TempSummaryStatistics {
   @Override
   public String toString() {
       return String.format(
-      "TempSummaryStatistics { avgTemp=%.2f," +
-      "devTemp=%.2f, minTemp=%.2f, maxTemp=%.2f }",
+      "TempSummaryStatistics { avgTemp=%.2f,"
+      +"devTemp=%.2f, minTemp=%.2f, maxTemp=%.2f }",
       avgTemp, devTemp, minTemp, maxTemp);
   }
 }
